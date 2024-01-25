@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Group {
@@ -7,10 +8,11 @@ public class Group {
     private List<User> users ;
     private List<Expense> expenses ;
 
-    public Group(String name, List<User> users, List<Expense> expenses) {
-        this.name = name;
-        this.users = users;
-        this.expenses = expenses;
+
+    public Group(String name) {
+        this.name = name ;
+        this.users = new ArrayList<>() ;
+        this.expenses = new ArrayList<>() ;
     }
 
     public String getName() {
