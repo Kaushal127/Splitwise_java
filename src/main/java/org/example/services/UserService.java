@@ -1,11 +1,11 @@
-package services;
+package org.example.services;
 
-import dtos.Transaction;
-import models.*;
-import repositories.GroupRepository;
-import repositories.UserExpenseRepository;
-import repositories.UserRepository;
-import strategies.SettleUpStrategy;
+import org.example.dtos.Transaction;
+import org.example.models.*;
+import org.example.repositories.GroupRepository;
+import org.example.repositories.UserRepository;
+import org.example.repositories.UserExpenseRepository;
+import org.example.strategies.SettleUpStrategy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,10 +16,13 @@ public class UserService {
     private UserExpenseRepository userExpenseRepository ;
     private GroupRepository groupRepository ;
     private SettleUpStrategy settleUpStrategy ;
+    private UserRepository userRepository ;
 
-    public UserService(UserExpenseRepository userExpenseRepository, GroupRepository groupRepository, SettleUpStrategy settleUpStrategy) {
+
+    public UserService(UserExpenseRepository userExpenseRepository, GroupRepository groupRepository, UserRepository userRepository ,SettleUpStrategy settleUpStrategy) {
         this.userExpenseRepository = userExpenseRepository;
         this.groupRepository = groupRepository;
+        this.userRepository = userRepository ;
         this.settleUpStrategy = settleUpStrategy;
     }
 
@@ -39,7 +42,7 @@ public class UserService {
                   transactions list.
          */
 
-        Map<User , Integer> extraAmountMap = new HashMap<>() ;
+        Map<User, Integer> extraAmountMap = new HashMap<>() ;
         List<Expense> expenses = groupRepository.findExpenseByGroup(groupName) ;
           for (Expense expense : expenses){
               if(expense.getExpenseType()== ExpenseType.REGULAR){
@@ -51,7 +54,7 @@ public class UserService {
                                 extraAmountMap.put(user,0) ;
                             }
                             Integer amount =extraAmountMap.get(user) ;
-                            if (userExpense.getUserExpenseType()== UserExpenseType.PAID_BY){
+                            if (userExpense.getUserExpenseType()== UserExpenseType.PAID){
                                 amount += userExpense.getAmount() ;
                             } else {
                                 amount -= userExpense.getAmount() ;
@@ -72,4 +75,12 @@ public class UserService {
           }
           return userTransactions ;
     }
+
+
+    public User registerUser(List<String> words) {
+        User user = new User(words.get(1), words.get(2), words.get(3) ) ;
+        userRepository.saveUser(user) ;
+        return user ;
+    }
+
 }

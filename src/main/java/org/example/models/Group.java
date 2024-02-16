@@ -1,4 +1,4 @@
-package models;
+package org.example.models;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,14 @@ public class Group {
     private List<User> users ;
     private List<Expense> expenses ;
 
+    @Override
+    public String toString() {
+        return "Group{" +
+                "name='" + name + '\'' +
+                ", users=" + users +
+                ", expenses=" + expenses +
+                '}';
+    }
 
     public Group(String name) {
         this.name = name ;

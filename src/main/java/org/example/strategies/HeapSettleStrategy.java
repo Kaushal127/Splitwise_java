@@ -1,7 +1,7 @@
-package strategies;
+package org.example.strategies;
 
-import dtos.Transaction;
-import models.User;
+import org.example.dtos.Transaction;
+import org.example.models.User;
 
 import java.util.*;
 

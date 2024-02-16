@@ -1,6 +1,6 @@
-package repositories;
+package org.example.repositories;
 
-import models.UserExpense;
+import org.example.models.UserExpense;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,5 +24,9 @@ public class UserExpenseRepository {
               }
           }
         return userExpenseList ;
+    }
+
+    public void addUserExpense(UserExpense userExpense) {
+        userExpenses.add(userExpense);
     }
 }

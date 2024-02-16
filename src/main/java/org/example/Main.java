@@ -1,15 +1,15 @@
 package org.example;
 
 
-import controllers.UserController;
-import dtos.Transaction;
-import models.*;
-import repositories.ExpenseRepository;
-import repositories.GroupRepository;
-import repositories.UserExpenseRepository;
-import repositories.UserRepository;
-import services.UserService;
-import strategies.HeapSettleStrategy;
+import org.example.controllers.UserController;
+import org.example.dtos.Transaction;
+import org.example.models.*;
+import org.example.repositories.ExpenseRepository;
+import org.example.repositories.GroupRepository;
+import org.example.repositories.UserExpenseRepository;
+import org.example.repositories.UserRepository;
+import org.example.services.UserService;
+import org.example.strategies.HeapSettleStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +33,11 @@ public class Main {
 
         //They went to goa and go for dinner
         //3.Create expenses
-        Expense dinnerExpense = new Expense("Dinner" , 5000 , ExpenseType.REGULAR) ;
+        Expense dinnerExpense = new Expense("GOA_TRIP" ,"Dinner", 5000 , ExpenseType.REGULAR) ;
 
         //4. Add the expenses share of everyone
         UserExpense kaushalShare =
-                new UserExpense(kaushal ,dinnerExpense, 1000 ,UserExpenseType.HAD_TO_PAY) ;
+                new UserExpense(kaushal ,dinnerExpense, 1000 , UserExpenseType.HAD_TO_PAY) ;
         UserExpense prasadShare =
                 new UserExpense(prasad ,dinnerExpense , 1000 ,UserExpenseType.HAD_TO_PAY) ;
         UserExpense sanketShare =
@@ -46,7 +46,7 @@ public class Main {
                 new UserExpense(chetan,dinnerExpense,2000,UserExpenseType.HAD_TO_PAY) ;
         //5.who paid what
         UserExpense PaidBykaushal =
-                new UserExpense(kaushal ,dinnerExpense ,5000,UserExpenseType.PAID_BY) ;
+                new UserExpense(kaushal ,dinnerExpense ,5000,UserExpenseType.PAID) ;
 
         // Manually add all these details to the databases/repositories
         UserRepository userRepository =  new UserRepository() ;
@@ -67,7 +67,7 @@ public class Main {
         userExpenseRepository.getUserExpenses().add(PaidBykaushal);
 
         UserController userController = new UserController(
-                new UserService(userExpenseRepository,groupRepository,new HeapSettleStrategy())) ;
+                new UserService(userExpenseRepository,groupRepository,userRepository,new HeapSettleStrategy())) ;
 
         List<Transaction> userTransaction = userController.settleUser("kaushal" ,"GOA_TRIP") ;
 

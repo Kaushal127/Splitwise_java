@@ -1,4 +1,4 @@
-package dtos;
+package org.example.dtos;
 
 public class Transaction {
     private String from ;

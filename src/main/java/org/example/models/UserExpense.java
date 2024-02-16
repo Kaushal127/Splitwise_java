@@ -1,4 +1,4 @@
-package models;
+package org.example.models;
 
 public class UserExpense {
     private User user ;

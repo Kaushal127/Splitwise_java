@@ -1,4 +1,4 @@
-package models;
+package org.example.models;
 
 public class User {
     private String name ;
@@ -29,6 +29,15 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 
     public void setPassword(String password) {
